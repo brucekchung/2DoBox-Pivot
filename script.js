@@ -7,6 +7,7 @@ $('#idea-card-section').on('blur', '.idea-title, .idea-description', editCard);
 $('#search-input').keyup(searchFunction);
 $('#idea-card-section').on('click', '.complete-btn', completeCard);
 
+
 //when button clicked, grab id of specific card from local storage
 function completeCard() {
   var currentId = event.target.closest('.idea-card').id;
