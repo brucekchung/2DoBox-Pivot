@@ -5,12 +5,24 @@ $('#idea-card-section').on('click', '.downvote', downvoteButton);
 $('#idea-card-section').on('click', '.upvote', upvoteButton);
 $('#idea-card-section').on('blur', '.idea-title, .idea-description', editCard);
 $('#search-input').keyup(searchFunction);
+$('#idea-card-section').on('click', '.complete-btn', completeCard);
 
-function Idea(title, body, idNum, quality) {
+//when button clicked, grab id of specific card from local storage
+function completeCard() {
+  var currentId = event.target.closest('.idea-card').id;
+  var parsedObject = JSON.parse(localStorage.getItem(currentId));
+  var numId = parsedObject.idNum;
+  $(`#${numId}`).toggleClass('completed');
+  parsedObject.completed === false ? parsedObject.completed = true : parsedObject.completed = false;
+  putIntoStorage(parsedObject);
+};
+
+function Idea(title, body, idNum, quality, completed) {
   this.title = title;
   this.body = body;
   this.idNum = idNum;
   this.quality = quality || 'swill';
+  this.completed = false;
 }
 
 function genCard() {
@@ -30,35 +42,37 @@ function putIntoStorage(object) {
 
 function prependIdea(idea) {
   $('#idea-card-section').prepend(`<article id="${idea['idNum']}" class="idea-card">
-      <form id="card-meta-data-form">
+      <section id="card-meta-data-form">
         <div id="idea-card-title-container">
-        <h2 contenteditable=true id="card-title" class="card-headings idea-title">${idea['title']}</h2>
-        <label for="delete-button">Delete</label>
-        <button id="delete-button" class="small-grey-button delete" name="delete-button"></button>
+          <h2 contenteditable=true id="card-title" class="card-headings idea-title">${idea['title']}</h2>
+          <label for="delete-button">Delete</label>
+          <button class="complete-btn">Completed Task</button>
+          <button id="delete-button" class="small-grey-button delete" name="delete-button"></button>
         </div>
         <p contenteditable=true id="card-description" class="idea-description">${idea['body']}</p>
-      </form>  
-
           <button id="up-vote-button" class="small-grey-button upvote" name="up-vote-button"></button>
           <button id="down-vote-button" class="small-grey-button downvote" name="down-vote-button"></button>
           <h3 id="quality-display-text" class="card-headings">quality : <span class="quality">${idea['quality']}</span></h3>
-
+      </section>  
     </article>`);
-}
+};
 
 function getIdeasFromStorage() {
   for(var i = 0; i < localStorage.length; i++) {
     var retrievedIdea = localStorage.getItem(localStorage.key(i));
     var parsedIdea = JSON.parse(retrievedIdea);
-    prependIdea(parsedIdea);
+    if (parsedIdea.completed === false) {
+      prependIdea(parsedIdea)
+    };
+    // parsedIdea.completed === false ? prependIdea(parsedIdea) : hide(parsedIdea);
   }
-}
+};
 
 function deleteButton() {
   var currentId = event.target.closest('.idea-card').id
   localStorage.removeItem(currentId);
   $(this).closest('.idea-card').remove();
-}
+};
 
 function downvoteButton() {
   var currentId = event.target.closest('.idea-card').id;
@@ -71,7 +85,7 @@ function downvoteButton() {
     $(`#${currentId} .quality`).text('swill');
   }
   putIntoStorage(parsedObject);
-}
+};
 
 function upvoteButton() {
   var currentId = event.target.closest('.idea-card').id;

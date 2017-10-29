@@ -58,6 +58,10 @@ textarea:focus {
   width: 275px;
 }
 
+.rectangular-blue-button:focus {
+  outline: 0;
+}
+
 .single-line-input {
   border: 1px solid #A7A9AC;
   color: #6D6E71;
@@ -169,6 +173,29 @@ p {
   height: 26px;
 }
 
+/*COMPLETED TASK BUTTON*/
+.complete-btn {
+  background-color: #D1D3D4;
+  color: #FFFFFF;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+  line-height: 1.40;
+  padding: 1px 5px;
+  position: absolute;
+  right: 44px;
+  top: -1px;
+  border: none;
+}
+
+.complete-btn:focus {
+  outline: 0;
+}
+
+.completed {
+  background-color: #dedede;
+  opacity: 0.5;
+}
+
 /*DELETE BUTTON*/
 
 .delete {
@@ -211,6 +238,7 @@ p {
   justify-content: space-between;
   margin-bottom: 8px;
   margin-top: 20px;
+  position: relative;
 }
 
 #idea-card-quality-container {
