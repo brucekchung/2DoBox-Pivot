@@ -9,16 +9,18 @@
     <title>Amanda and Melissa's Ideabox</title>
   </head>
   <body>
-    <section id="user-input-form-section" class="main-section">
+    <header id="user-input-form-section" class="main-section">
       <h1 id="ideabox-title-text">idea<span>box</span></h1>
-      <form id="user-input-form">
+      <section id="user-input-form">
         <label for="title-input">Title</label>
         <label for="description-input">Body</label>
         <input id ="title-input" class="single-line-input" type="text" name="title-input" placeholder="Title">
         <textarea id="description-input" class="multi-line-input" type="text" name="description-input" placeholder="Body" rows="20" cols="10" wrap="soft"></textarea>
         <button id="save-button" class="rectangular-blue-button" type="input">save</button>
-      </form>
-    </section>
+        <button id="sort" class="rectangular-blue-button" type="input">Sort TODOs</button>
+        <button id="show-complete" class="rectangular-blue-button" type="input">Show Complete TODOs</button>
+      </section>
+    </header>
     <section id="idea-box-section" class="main-section">
       <form id="search-input-form">
         <label for="search-input">Search</label>
