@@ -6,7 +6,22 @@ $('#idea-card-section').on('click', '.upvote', upvoteButton);
 $('#idea-card-section').on('blur', '.idea-title, .idea-description', editCard);
 $('#search-input').keyup(searchFunction);
 $('#idea-card-section').on('click', '.complete-btn', completeCard);
+$('#show-complete').on('click', genCompleted);
 
+//When button clicked, loop through local storage
+//Grab only those cards with this.completed = true and append
+
+function genCompleted () {
+  $('article').hide();
+  for(var i = 0; i < localStorage.length; i++) {
+    var retrievedIdea = localStorage.getItem(localStorage.key(i));
+    var parsedIdea = JSON.parse(retrievedIdea);
+    if (parsedIdea.completed === true) {
+      prependIdea(parsedIdea)
+    };
+    // parsedIdea.completed === false ? prependIdea(parsedIdea) : hide(parsedIdea);
+}
+}
 
 //when button clicked, grab id of specific card from local storage
 function completeCard() {
@@ -123,4 +138,4 @@ function searchFunction() {
       $(`#${currentId}`).css( "display", "none");
     }
   }
-}
+};
