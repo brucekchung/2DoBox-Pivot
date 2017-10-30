@@ -43,7 +43,7 @@ textarea:focus {
 
 #user-input-form-section {
   background-color: #E5F3F2;
-  height: 300px;
+  height: 400px;
   text-align: center;
   width: 100%;
 }
@@ -56,6 +56,11 @@ textarea:focus {
   padding: 0;
   vertical-align: center;
   width: 275px;
+  margin-bottom: 15px;
+}
+
+.rectangular-blue-button:focus {
+  outline: 0;
 }
 
 .single-line-input {
@@ -98,6 +103,7 @@ p {
   overflow: hidden;
   width: 100%;
   word-wrap: break-word;
+  margin-bottom: 20px;
 }
 
 .card-headings {
@@ -108,6 +114,7 @@ p {
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 75%;
+  margin-top: 10px;
 }
 
 .idea-card {
@@ -116,6 +123,7 @@ p {
   flex-direction: column;
   justify-content: center;
   width: 277px;
+  position: relative;
 }
 
 /*BUTTON STATES*/
@@ -169,6 +177,33 @@ p {
   height: 26px;
 }
 
+/*COMPLETED TASK BUTTON*/
+.complete-btn {
+  background-color: #D1D3D4;
+  color: #FFFFFF;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.40;
+  padding: 1px 5px;
+  position: absolute;
+  right: 42px;
+  top: 6px;
+  border: none;
+}
+
+.complete-btn:hover {
+  background-color: #709eb5;
+}
+
+.complete-btn:focus {
+  outline: 0;
+}
+
+.completed {
+  background-color: #dedede;
+  opacity: 0.5;
+}
+
 /*DELETE BUTTON*/
 
 .delete {
@@ -181,7 +216,7 @@ p {
   border-style: none;
   border: none;
   height: 26px;
-  margin: 0px 10px 0px 0px;
+  margin: -15px 10px 0px 0px;
   width: 26px;
 }
 
@@ -211,6 +246,7 @@ p {
   justify-content: space-between;
   margin-bottom: 8px;
   margin-top: 20px;
+  /*position: relative;*/
 }
 
 #idea-card-quality-container {
@@ -225,6 +261,10 @@ p {
 #quality-display-text {
   font-size: 16px;
   padding: 5px 0px 5px 0px;
+  position: absolute;
+  bottom: 4px;
+  left: 76px;
+  width: 134px;
 }
 
 /*MEDIA QUERIES*/
@@ -236,6 +276,12 @@ p {
     padding: 40px 0px;
   }
 
+ /* .complete-btn {
+    width: 100px;
+    right: 0;
+    bottom: 10px;
+  }*/
+
   #description-input {
     height: 32px;
     width: 476px;
@@ -246,8 +292,11 @@ p {
   }
 
   #save-button,
+  #show-complete,
+  #sort,
   .idea-card,
   .single-line-input {
     width: 480px;
   }
+
 
