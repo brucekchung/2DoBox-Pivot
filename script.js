@@ -1,5 +1,8 @@
 $(window).on('load', getTodosFromStorage);
-$('#save-button').on('click',genCard);
+$('#save-button').on('click', function() {
+    genCard();
+    cardsOnDisplay();
+  });
 $('#todo-card-section').on('click', '.delete-btn', deleteButton);
 $('#todo-card-section').on('click', '.downvote-btn', changeImportance);
 $('#todo-card-section').on('click', '.upvote-btn', changeImportance);
@@ -7,6 +10,25 @@ $('#todo-card-section').on('blur', '.todo-title, .todo-description', editCard);
 $('#search-input').keyup(searchFunction);
 $('#todo-card-section').on('click', '.complete-btn', completeCard);
 $('#show-complete').on('click', ifCompleted);
+$('#all-todos').on('click', showAll);
+
+function showAll() {
+  console.log(showAll)
+};
+
+//Create a function that on click of save button
+//Rerenders x amount of cards onto page ONLY
+//grabs first x cards from local storage to append
+
+function cardsOnDisplay() {
+  $('article').hide();
+  var allCards = Object.keys(localStorage);
+  var displayedCards = allCards.slice(-2);
+  displayedCards.forEach(function(card) {
+    console.log($(`#${card}`));
+    $(`#${card}`).show();
+  });
+}
 
 
 function Todo(title, body, idNum, importance, completed) {
@@ -66,7 +88,7 @@ function genCard() {
   var newTodo = new Todo(title, body, Date.now());
   prependTodo(newTodo);
   putIntoStorage(newTodo);
-  $('#user-input-form').reset();
+  // $('#user-input-form').reset();
 }
 
 function putIntoStorage(object) {

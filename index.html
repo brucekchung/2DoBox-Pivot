@@ -11,20 +11,23 @@
   <body>
     <header id="user-input-form-section" class="main-section">
       <h1 id="todobox-title-text">2do<span>box</span></h1>
-      <section id="user-input-form">
-        <label for="title-input">Title</label>
-        <label for="description-input">Task</label>
-        <input id ="title-input" class="single-line-input" type="text" name="title-input" placeholder="Title">
-        <textarea id="description-input" class="multi-line-input" type="text" name="description-input" placeholder="Task" rows="20" cols="10" wrap="soft"></textarea>
+      <section>
+        <form id="user-input-form">
+          <label for="title-input">Title</label>
+          <label for="description-input">Task</label>
+          <input id ="title-input" class="single-line-input" type="text" name="title-input" placeholder="Title">
+          <textarea id="description-input" class="multi-line-input" type="text" name="description-input" placeholder="Task" rows="20" cols="10" wrap="soft"></textarea>
+        </form>
         <button id="save-button" class="rectangular-blue-button" type="input">save</button>
         <button id="sort" class="rectangular-blue-button" type="input">Sort TODOs</button>
         <button id="show-complete" class="rectangular-blue-button" type="input">Show Complete TODOs</button>
+        <button id="all-todos" class="rectangular-blue-button" type="input">Show More TODOS</button>
       </section>
     </header>
     <section id="todo-box-section" class="main-section">
       <form id="search-input-form">
-        <label for="search-input">Search</label>
-        <input id="search-input" class="single-line-input" type="text" name="search-input" placeholder="Search">
+        <label for="filter-input">Search</label>
+        <input id="search-input" class="single-line-input" type="text" name="search-input" placeholder="Filter">
       </form>
       <section id="todo-card-section">
       </section>
