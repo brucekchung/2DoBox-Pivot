@@ -1,16 +1,16 @@
 $(window).on('load', getIdeasFromStorage);
 $('#save-button').on('click',genCard);
 $('#idea-card-section').on('click', '.delete', deleteButton);
-$('#idea-card-section').on('click', '.downvote', downvoteButton);
-$('#idea-card-section').on('click', '.upvote', upvoteButton);
+$('#idea-card-section').on('click', '.downvote', changeImportance);
+$('#idea-card-section').on('click', '.upvote', changeImportance);
 $('#idea-card-section').on('blur', '.idea-title, .idea-description', editCard);
 $('#search-input').keyup(searchFunction);
 
-function Idea(title, body, idNum, quality) {
+function Idea(title, body, idNum, importance) {
   this.title = title;
   this.body = body;
   this.idNum = idNum;
-  this.quality = quality || 'swill';
+  this.importance = importance || 2;
 }
 
 function genCard() {
@@ -19,8 +19,7 @@ function genCard() {
   var newIdea = new Idea(title, body, Date.now());
   prependIdea(newIdea);
   putIntoStorage(newIdea);
-  var $form = $('#user-input-form');
-  $form[0].reset();
+  $('#user-input-form').reset();
 }
 
 function putIntoStorage(object) {
@@ -38,11 +37,9 @@ function prependIdea(idea) {
         </div>
         <p contenteditable=true id="card-description" class="idea-description">${idea['body']}</p>
       </form>  
-
           <button id="up-vote-button" class="small-grey-button upvote" name="up-vote-button"></button>
           <button id="down-vote-button" class="small-grey-button downvote" name="down-vote-button"></button>
-          <h3 id="quality-display-text" class="card-headings">quality : <span class="quality">${idea['quality']}</span></h3>
-
+          <h3 id="quality-display-text" class="card-headings">importance : <span class="quality">${idea['importance']}</span></h3>
     </article>`);
 }
 
@@ -58,32 +55,6 @@ function deleteButton() {
   var currentId = event.target.closest('.idea-card').id
   localStorage.removeItem(currentId);
   $(this).closest('.idea-card').remove();
-}
-
-function downvoteButton() {
-  var currentId = event.target.closest('.idea-card').id;
-  var parsedObject = JSON.parse(localStorage.getItem(currentId));
-  if( parsedObject.quality === 'genius') {
-    parsedObject.quality = 'plausible';
-    $(`#${currentId} .quality`).text('plausible');
-  } else if (parsedObject.quality === 'plausible'){
-    parsedObject.quality = 'swill';
-    $(`#${currentId} .quality`).text('swill');
-  }
-  putIntoStorage(parsedObject);
-}
-
-function upvoteButton() {
-  var currentId = event.target.closest('.idea-card').id;
-  var parsedObject = JSON.parse(localStorage.getItem(currentId));
-  if( parsedObject.quality === 'swill') {
-    parsedObject.quality = 'plausible';
-    $(`#${currentId} .quality`).text('plausible');
-  } else if (parsedObject.quality === 'plausible'){
-    parsedObject.quality = 'genius';
-    $(`#${currentId} .quality`).text('genius');
-  }
-  putIntoStorage(parsedObject);
 }
 
 function editCard() {
@@ -109,3 +80,22 @@ function searchFunction() {
     }
   }
 }
+
+function changeImportance() {
+  var currentId = event.target.closest('.idea-card').id;
+  var parsedObject = JSON.parse(localStorage.getItem(currentId)); 
+  var currentImportance = JSON.parse(localStorage.getItem(currentId)).importance;
+  var indexChange = $(this).hasClass('upvote') ? 1 : -1;
+  var arr = ['none', 'low', 'normal', 'high', 'critical'];
+  var newImportance = arr[currentImportance + indexChange];
+  if (newImportance !== undefined) {
+    parsedObject['importance'] = currentImportance + indexChange;
+    $(this).siblings('.card-headings').children('.quality').text(newImportance);
+  }
+  putIntoStorage(parsedObject);
+}
+
+
+
+
+
