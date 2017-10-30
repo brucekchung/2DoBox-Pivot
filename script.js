@@ -1,13 +1,21 @@
 $(window).on('load', getIdeasFromStorage);
 $('#save-button').on('click',genCard);
 $('#idea-card-section').on('click', '.delete', deleteButton);
-$('#idea-card-section').on('click', '.downvote', downvoteButton);
-$('#idea-card-section').on('click', '.upvote', upvoteButton);
+$('#idea-card-section').on('click', '.downvote', changeImportance);
+$('#idea-card-section').on('click', '.upvote', changeImportance);
 $('#idea-card-section').on('blur', '.idea-title, .idea-description', editCard);
 $('#search-input').keyup(searchFunction);
 $('#idea-card-section').on('click', '.complete-btn', completeCard);
 $('#show-complete').on('click', ifCompleted);
 
+
+function Idea(title, body, idNum, importance, completed) {
+  this.title = title;
+  this.body = body;
+  this.idNum = idNum;
+  this.importance = importance || 'normal';
+  this.completed = false;
+}
 //When button clicked, loop through local storage
 //Grab only those cards with this.completed = true and append
 
@@ -37,7 +45,7 @@ function genCompleted () {
       prependIdea(parsedIdea)
     };
     // parsedIdea.completed === false ? prependIdea(parsedIdea) : hide(parsedIdea);
-}
+  }
 }
 
 //when button clicked, grab id of specific card from local storage
@@ -50,22 +58,13 @@ function completeCard() {
   putIntoStorage(parsedObject);
 };
 
-function Idea(title, body, idNum, quality, completed) {
-  this.title = title;
-  this.body = body;
-  this.idNum = idNum;
-  this.quality = quality || 'swill';
-  this.completed = false;
-}
-
 function genCard() {
   var title = $('#title-input').val();
   var body = $('#description-input').val();
   var newIdea = new Idea(title, body, Date.now());
   prependIdea(newIdea);
   putIntoStorage(newIdea);
-  var $form = $('#user-input-form');
-  $form[0].reset();
+  $('#user-input-form').reset();
 }
 
 function putIntoStorage(object) {
@@ -82,10 +81,10 @@ function prependIdea(idea) {
           <button class="complete-btn">Completed Task</button>
           <button id="delete-button" class="small-grey-button delete" name="delete-button"></button>
         </div>
-        <p contenteditable=true id="card-description" class="idea-description">${idea['body']}</p>
+        <p contenteditable=true id="card-description" class="idea-description">${idea['body']}</p> 
           <button id="up-vote-button" class="small-grey-button upvote" name="up-vote-button"></button>
           <button id="down-vote-button" class="small-grey-button downvote" name="down-vote-button"></button>
-          <h3 id="quality-display-text" class="card-headings">quality : <span class="quality">${idea['quality']}</span></h3>
+          <h3 id="quality-display-text" class="card-headings">importance : <span class="quality">${idea['importance']}</span></h3>
       </section>  
     </article>`);
 };
@@ -106,32 +105,6 @@ function deleteButton() {
   localStorage.removeItem(currentId);
   $(this).closest('.idea-card').remove();
 };
-
-function downvoteButton() {
-  var currentId = event.target.closest('.idea-card').id;
-  var parsedObject = JSON.parse(localStorage.getItem(currentId));
-  if( parsedObject.quality === 'genius') {
-    parsedObject.quality = 'plausible';
-    $(`#${currentId} .quality`).text('plausible');
-  } else if (parsedObject.quality === 'plausible'){
-    parsedObject.quality = 'swill';
-    $(`#${currentId} .quality`).text('swill');
-  }
-  putIntoStorage(parsedObject);
-};
-
-function upvoteButton() {
-  var currentId = event.target.closest('.idea-card').id;
-  var parsedObject = JSON.parse(localStorage.getItem(currentId));
-  if( parsedObject.quality === 'swill') {
-    parsedObject.quality = 'plausible';
-    $(`#${currentId} .quality`).text('plausible');
-  } else if (parsedObject.quality === 'plausible'){
-    parsedObject.quality = 'genius';
-    $(`#${currentId} .quality`).text('genius');
-  }
-  putIntoStorage(parsedObject);
-}
 
 function editCard() {
   var currentId = event.target.closest('.idea-card').id;
@@ -155,4 +128,23 @@ function searchFunction() {
       $(`#${currentId}`).css( "display", "none");
     }
   }
+}
+
+function changeImportance() {
+  var currentId = event.target.closest('.idea-card').id;
+  var parsedObject = JSON.parse(localStorage.getItem(currentId)); 
+  var indexChange = $(this).hasClass('upvote') ? 1 : -1;
+  var arr = ['none', 'low', 'normal', 'high', 'critical'];
+  var currentImportance = arr.indexOf(parsedObject.importance);
+  console.log('currentImportance', currentImportance);
+  var newImportance = arr[currentImportance + indexChange];
+  if (newImportance !== undefined) {
+    parsedObject['importance'] = arr[currentImportance + indexChange];
+    $(this).siblings('.card-headings').children('.quality').text(newImportance);
+  }
+  putIntoStorage(parsedObject);
+}
+
+
 };
+
