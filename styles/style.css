@@ -106,7 +106,7 @@ p {
   margin-bottom: 20px;
 }
 
-.card-headings {
+.importance-text, .todo-title {
   color: #6D6E71;
   font-family: 'Roboto Slab', serif;
   font-size: 24px;
@@ -128,25 +128,21 @@ p {
 
 /*BUTTON STATES*/
 
-.small-grey-button {
+.circle-btn {
   height: 26px;
   padding: 0px 15px 0px 0px;
 }
 
 /*DOWN VOTE BUTTON*/
 
-.downvote {
-  background: url(../FEE-ideabox-icon-assets/downvote.svg);
-  background-repeat: no-repeat;
-  height: 26px;
-}
-
-#down-vote-button {
+.downvote-btn {
   border-style: none;
   border: none;
   height: 26px;
   margin: 0px 10px 0px 0px;
   width: 26px;
+  background: url(../FEE-ideabox-icon-assets/downvote.svg);
+  background-repeat: no-repeat;
 }
 
 .downvote:hover {
@@ -157,21 +153,17 @@ p {
 
 /*UPVOTE BUTTON*/
 
-.upvote {
-  background: url(../FEE-ideabox-icon-assets/upvote.svg);
-  background-repeat: no-repeat;
-  height: 26px;
-}
-
-#up-vote-button {
+.upvote-btn {
   border-style: none;
   border: none;
   height: 26px;
   margin: 0px 10px 0px 0px;
   width: 26px;
+  background: url(../FEE-ideabox-icon-assets/upvote.svg);
+  background-repeat: no-repeat;
 }
 
-.upvote:hover {
+.upvote-btn:hover {
   background: url(../FEE-ideabox-icon-assets/upvote-hover.svg);
   background-repeat: no-repeat;
   height: 26px;
@@ -206,13 +198,13 @@ p {
 
 /*DELETE BUTTON*/
 
-.delete {
+.delete-btn {
   background: url(../FEE-ideabox-icon-assets/delete.svg);
   background-repeat: no-repeat;
   height: 26px;
 }
 
-#delete-button {
+.delete-btn {
   border-style: none;
   border: none;
   height: 26px;
@@ -220,7 +212,7 @@ p {
   width: 26px;
 }
 
-.delete:hover {
+.delete-btn:hover {
   background: url(../FEE-ideabox-icon-assets/delete-hover.svg);
   background-repeat: no-repeat;
   height: 26px;
@@ -239,7 +231,7 @@ p {
   flex-direction: column;
 }
 
-#idea-card-title-container {
+.title-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -258,7 +250,7 @@ p {
   margin-top: 19px;
 }
 
-#quality-display-text {
+.importance-text {
   font-size: 16px;
   padding: 5px 0px 5px 0px;
   position: absolute;
