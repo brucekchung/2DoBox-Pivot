@@ -10,7 +10,7 @@ function Idea(title, body, idNum, importance) {
   this.title = title;
   this.body = body;
   this.idNum = idNum;
-  this.importance = importance || 2;
+  this.importance = importance || 'normal';
 }
 
 function genCard() {
@@ -84,12 +84,13 @@ function searchFunction() {
 function changeImportance() {
   var currentId = event.target.closest('.idea-card').id;
   var parsedObject = JSON.parse(localStorage.getItem(currentId)); 
-  var currentImportance = JSON.parse(localStorage.getItem(currentId)).importance;
   var indexChange = $(this).hasClass('upvote') ? 1 : -1;
   var arr = ['none', 'low', 'normal', 'high', 'critical'];
+  var currentImportance = arr.indexOf(parsedObject.importance);
+  console.log('currentImportance', currentImportance);
   var newImportance = arr[currentImportance + indexChange];
   if (newImportance !== undefined) {
-    parsedObject['importance'] = currentImportance + indexChange;
+    parsedObject['importance'] = arr[currentImportance + indexChange];
     $(this).siblings('.card-headings').children('.quality').text(newImportance);
   }
   putIntoStorage(parsedObject);
