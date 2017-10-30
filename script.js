@@ -6,13 +6,30 @@ $('#idea-card-section').on('click', '.upvote', upvoteButton);
 $('#idea-card-section').on('blur', '.idea-title, .idea-description', editCard);
 $('#search-input').keyup(searchFunction);
 $('#idea-card-section').on('click', '.complete-btn', completeCard);
-$('#show-complete').on('click', genCompleted);
+$('#show-complete').on('click', ifCompleted);
 
 //When button clicked, loop through local storage
 //Grab only those cards with this.completed = true and append
 
+function ifCompleted() {
+  $('article').hide();
+  if ($('#show-complete').hasClass('clicked') === true) {
+    $('#show-complete').removeClass('clicked');
+    for(var i = 0; i < localStorage.length; i++) {
+      var retrievedIdea = localStorage.getItem(localStorage.key(i));
+      var parsedIdea = JSON.parse(retrievedIdea);  
+      prependIdea(parsedIdea);
+    }
+  } 
+  else {
+    $('#show-complete').addClass('clicked');
+    genCompleted()
+  }
+}
+
 function genCompleted () {
   $('article').hide();
+  $('#show-complete').addClass('clicked');
   for(var i = 0; i < localStorage.length; i++) {
     var retrievedIdea = localStorage.getItem(localStorage.key(i));
     var parsedIdea = JSON.parse(retrievedIdea);
