@@ -133,6 +133,10 @@ p {
   padding: 0px 15px 0px 0px;
 }
 
+#save-button:disabled {
+  background-color: #8db4b1;
+}
+
 /*DOWN VOTE BUTTON*/
 
 .downvote-btn {

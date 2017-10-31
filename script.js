@@ -15,22 +15,34 @@ $('#search-input').keyup(searchFunction);
 $('#todo-card-section').on('click', '.complete-btn', completeCard);
 $('#show-complete').on('click', ifCompleted);
 $('#all-todos').on('click', showAll);
-$('#none').on('click', function() {
-  filterImportance('none')
-});
-$('#low').on('click', function() {
-  filterImportance('low')
-});
-$('#normal').on('click', function() {
-  filterImportance('normal')
-});
-$('#high').on('click', function() {
-  filterImportance('high')
-});
-$('#critical').on('click', function() {
-  filterImportance('critical')
-});
+$('#none').on('click', function() { filterImportance('none') });
+$('#low').on('click', function() { filterImportance('low') });
+$('#normal').on('click', function() { filterImportance('normal') });
+$('#high').on('click', function() { filterImportance('high') });
+$('#critical').on('click', function() { filterImportance('critical') });
+$('#description-input').on('keyup', countChar);
+$('#description-input').on('keyup', enableSaveBtn);
+$('#title-input').on('keyup', enableSaveBtn);
 
+function enableSaveBtn() {
+  var titleInput = $('#title-input').val();
+  var taskInput = $('#description-input').val();
+  if (titleInput && taskInput){
+    $('#save-button').prop('disabled', false);
+  }
+}
+
+function countChar() {
+  var taskInput = $('#description-input').val().length;
+  $('.charCount').text(taskInput);
+  if(taskInput > 20) {
+    $('#save-button').prop('disabled', true);
+    $('.charCount').text('Exceeded 120 character max');
+  }
+  else {
+    $('#save-button').prop('disabled', false);
+  }
+}
 
 function filterImportance(value) {
   $(`article`).hide();
@@ -59,7 +71,6 @@ function cardsOnDisplay() {
   });
 }
 
-
 function Todo(title, body, idNum, importance, completed) {
   this.title = title;
   this.body = body;
@@ -68,23 +79,25 @@ function Todo(title, body, idNum, importance, completed) {
   this.completed = false;
 }
 
-//When button clicked, loop through local storage
-//Grab only those cards with this.completed = true and append
 function ifCompleted() {
   $('article').hide();
   if ($('#show-complete').hasClass('clicked') === true) {
     $('#show-complete').removeClass('clicked');
-    for(var i = 0; i < localStorage.length; i++) {
-      var retrievedTodo = localStorage.getItem(localStorage.key(i));
-      var parsedTodo = JSON.parse(retrievedTodo);  
-       if (parsedTodo.completed === false) {
-        prependTodo(parsedTodo);
-        };
-    }
+    genAllButCompleted();
   } 
   else {
     $('#show-complete').addClass('clicked');
     genCompleted();
+  }
+}
+
+function genAllButCompleted() {
+  for(var i = 0; i < localStorage.length; i++) {
+    var retrievedTodo = localStorage.getItem(localStorage.key(i));
+    var parsedTodo = JSON.parse(retrievedTodo);  
+    if (parsedTodo.completed === false) {
+      prependTodo(parsedTodo);
+    };
   }
 }
 
@@ -195,7 +208,3 @@ function changeImportance() {
   }
   putIntoStorage(parsedObject);
 }
-
-
-
-
