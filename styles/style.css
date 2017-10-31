@@ -259,6 +259,15 @@ p {
   width: 134px;
 }
 
+#show-complete,
+.all-todos {
+  width: 237px;
+}
+
+.importance-button {
+  width: 100px;
+}
+
 /*MEDIA QUERIES*/
 
 @media screen and (min-width: 520px) {
@@ -284,11 +293,7 @@ p {
   }
 
   #save-button,
-  #show-complete,
-  #sort,
   .todo-card,
   .single-line-input {
     width: 480px;
   }
-
-

@@ -1,5 +1,12 @@
-$(window).on('load', getTodosFromStorage);
-$('#save-button').on('click',genCard);
+$(window).on('load', function () {
+  getTodosFromStorage()
+  cardsOnDisplay()
+});
+
+$('#save-button').on('click', function() {
+    genCard();
+    cardsOnDisplay();
+  });
 $('#todo-card-section').on('click', '.delete-btn', deleteButton);
 $('#todo-card-section').on('click', '.downvote-btn', changeImportance);
 $('#todo-card-section').on('click', '.upvote-btn', changeImportance);
@@ -7,6 +14,50 @@ $('#todo-card-section').on('blur', '.todo-title, .todo-description', editCard);
 $('#search-input').keyup(searchFunction);
 $('#todo-card-section').on('click', '.complete-btn', completeCard);
 $('#show-complete').on('click', ifCompleted);
+$('#all-todos').on('click', showAll);
+$('#none').on('click', function() {
+  filterImportance('none')
+});
+$('#low').on('click', function() {
+  filterImportance('low')
+});
+$('#normal').on('click', function() {
+  filterImportance('normal')
+});
+$('#high').on('click', function() {
+  filterImportance('high')
+});
+$('#critical').on('click', function() {
+  filterImportance('critical')
+});
+
+
+function filterImportance(value) {
+  $(`article`).hide();
+  var allCards = Object.keys(localStorage);
+  allCards.forEach(function(card) {
+    var importance = JSON.parse(localStorage.getItem(card)).importance;
+    if(importance === value) {
+      $(`#${card}`).show();
+    }
+  });
+}
+
+function showAll() {
+  var allCards = Object.keys(localStorage);
+  allCards.forEach(function(card) {
+    $(`#${card}`).show();
+  });
+}
+
+function cardsOnDisplay() {
+  $('article').hide();
+  var allCards = Object.keys(localStorage);
+  var displayedCards = allCards.slice(-10);
+  displayedCards.forEach(function(card) {
+    $(`#${card}`).show();
+  });
+}
 
 
 function Todo(title, body, idNum, importance, completed) {
@@ -66,7 +117,7 @@ function genCard() {
   var newTodo = new Todo(title, body, Date.now());
   prependTodo(newTodo);
   putIntoStorage(newTodo);
-  $('#user-input-form').reset();
+  // $('#user-input-form').reset();
 }
 
 function putIntoStorage(object) {
