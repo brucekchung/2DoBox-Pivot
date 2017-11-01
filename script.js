@@ -20,7 +20,6 @@ $('#low').on('click', function() { filterImportance('low') });
 $('#normal').on('click', function() { filterImportance('normal') });
 $('#high').on('click', function() { filterImportance('high') });
 $('#critical').on('click', function() { filterImportance('critical') });
-//$('#description-input').on('keyup', countChar);
 $('#description-input').on('keyup', enableSaveBtn);
 $('#title-input').on('keyup', enableSaveBtn);
 
@@ -39,17 +38,6 @@ function enableSaveBtn() {
   else 
     $('#save-button').prop('disabled', true);
 }
-
-// function countChar() {
-//   var taskInput = $('#description-input').val().length;
-//   $('.charCount').text(taskInput);
-//   if(taskInput > 20) {
-//     $('#save-button').prop('disabled', true);
-//     $('.charCount').text('Exceeded 120 character max');
-//   }
-//   else
-//     $('#save-button').prop('disabled', false);
-// }
 
 function filterImportance(value) {
   $(`article`).hide();
@@ -202,9 +190,9 @@ function changeImportance() {
   var currentId = event.target.closest('.todo-card').id;
   var parsedObject = JSON.parse(localStorage.getItem(currentId)); 
   var indexChange = $(this).hasClass('upvote-btn') ? 1 : -1;
-  var arr = ['none', 'low', 'normal', 'high', 'critical'];
-  var currentImportance = arr.indexOf(parsedObject.importance);
-  var newImportance = arr[currentImportance + indexChange];
+  var importanceArr = ['none', 'low', 'normal', 'high', 'critical'];
+  var currentImportance = importanceArr.indexOf(parsedObject.importance);
+  var newImportance = importanceArr[currentImportance + indexChange];
   if (newImportance !== undefined) {
     parsedObject['importance'] = newImportance;
     $(this).siblings('.importance-text').children('.quality').text(newImportance);
