@@ -20,29 +20,36 @@ $('#low').on('click', function() { filterImportance('low') });
 $('#normal').on('click', function() { filterImportance('normal') });
 $('#high').on('click', function() { filterImportance('high') });
 $('#critical').on('click', function() { filterImportance('critical') });
-$('#description-input').on('keyup', countChar);
+//$('#description-input').on('keyup', countChar);
 $('#description-input').on('keyup', enableSaveBtn);
 $('#title-input').on('keyup', enableSaveBtn);
 
 function enableSaveBtn() {
   var titleInput = $('#title-input').val();
   var taskInput = $('#description-input').val();
-  if (titleInput && taskInput){
-    $('#save-button').prop('disabled', false);
-  }
-}
-
-function countChar() {
-  var taskInput = $('#description-input').val().length;
-  $('.charCount').text(taskInput);
-  if(taskInput > 20) {
+  var taskLength = $('#description-input').val().length;
+  $('.charCount').text(taskLength);
+  if (taskLength > 20) {
     $('#save-button').prop('disabled', true);
     $('.charCount').text('Exceeded 120 character max');
   }
-  else {
+  else if (titleInput && taskInput && taskLength < 20) {
     $('#save-button').prop('disabled', false);
   }
+  else 
+    $('#save-button').prop('disabled', true);
 }
+
+// function countChar() {
+//   var taskInput = $('#description-input').val().length;
+//   $('.charCount').text(taskInput);
+//   if(taskInput > 20) {
+//     $('#save-button').prop('disabled', true);
+//     $('.charCount').text('Exceeded 120 character max');
+//   }
+//   else
+//     $('#save-button').prop('disabled', false);
+// }
 
 function filterImportance(value) {
   $(`article`).hide();
@@ -81,7 +88,7 @@ function Todo(title, body, idNum, importance, completed) {
 
 function ifCompleted() {
   $('article').hide();
-  if ($('#show-complete').hasClass('clicked') === true) {
+  if ($('#show-complete').hasClass('clicked')) {
     $('#show-complete').removeClass('clicked');
     genAllButCompleted();
   } 
@@ -110,11 +117,9 @@ function genCompleted () {
     if (parsedTodo.completed === true) {
       prependTodo(parsedTodo);
     };
-    // parsedTodo.completed === false ? prependTodo(parsedTodo) : hide(parsedTodo);
   }
 }
 
-//when button clicked, grab id of specific card from local storage
 function completeCard() {
   var currentId = event.target.closest('.todo-card').id;
   var parsedObject = JSON.parse(localStorage.getItem(currentId));
@@ -130,7 +135,7 @@ function genCard() {
   var newTodo = new Todo(title, body, Date.now());
   prependTodo(newTodo);
   putIntoStorage(newTodo);
-  // $('#user-input-form').reset();
+  $('#user-input-form')[0].reset();
 }
 
 function putIntoStorage(object) {
@@ -161,7 +166,6 @@ function getTodosFromStorage() {
     if (parsedTodo.completed === false) {
       prependTodo(parsedTodo)
     };
-    // parsedTodo.completed === false ? prependTodo(parsedTodo) : hide(parsedTodo);
   }
 }
 
@@ -184,11 +188,10 @@ function editCard() {
 function searchFunction() {
   var filteredText = $(this).val().toUpperCase();
   for (var i = 0; i < localStorage.length; i++) {
-    var retrievedTodo = localStorage.getItem(localStorage.key(i));
-    var parsedObject = JSON.parse(retrievedTodo);
+    var parsedObject = JSON.parse(localStorage.getItem(localStorage.key(i)));
     var currentId = parsedObject['idNum'];
     if (parsedObject['title'].toUpperCase().includes(filteredText) || parsedObject['body'].toUpperCase().includes(filteredText)) {
-      $(`#${currentId}`).css( "display", "" );
+      $(`#${currentId}`).css( "display", "");
     } else {
       $(`#${currentId}`).css( "display", "none");
     }
@@ -203,8 +206,9 @@ function changeImportance() {
   var currentImportance = arr.indexOf(parsedObject.importance);
   var newImportance = arr[currentImportance + indexChange];
   if (newImportance !== undefined) {
-    parsedObject['importance'] = arr[currentImportance + indexChange];
+    parsedObject['importance'] = newImportance;
     $(this).siblings('.importance-text').children('.quality').text(newImportance);
   }
   putIntoStorage(parsedObject);
 }
+
