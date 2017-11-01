@@ -20,23 +20,25 @@ $('#low').on('click', function() { filterImportance('low') });
 $('#normal').on('click', function() { filterImportance('normal') });
 $('#high').on('click', function() { filterImportance('high') });
 $('#critical').on('click', function() { filterImportance('critical') });
-$('#description-input').on('keyup', enableSaveBtn);
-$('#title-input').on('keyup', enableSaveBtn);
+$('#description-input').on('keyup', countChar);
+$('#title-input').on('keyup', countChar);
+
+function countChar() {
+  var taskLength = $('#description-input').val().length;
+  $('.charCount').text(taskLength);
+  enableSaveBtn();
+}
 
 function enableSaveBtn() {
   var titleInput = $('#title-input').val();
   var taskInput = $('#description-input').val();
   var taskLength = $('#description-input').val().length;
-  $('.charCount').text(taskLength);
-  if (taskLength > 20) {
-    $('#save-button').prop('disabled', true);
-    $('.charCount').text('Exceeded 120 character max');
-  }
-  else if (titleInput && taskInput && taskLength < 20) {
+  if (titleInput && taskInput && taskLength < 20) {
     $('#save-button').prop('disabled', false);
   }
-  else 
+  else {
     $('#save-button').prop('disabled', true);
+  }
 }
 
 function filterImportance(value) {
@@ -124,6 +126,7 @@ function genCard() {
   prependTodo(newTodo);
   putIntoStorage(newTodo);
   $('#user-input-form')[0].reset();
+  $('.charCount').text('0');
 }
 
 function putIntoStorage(object) {

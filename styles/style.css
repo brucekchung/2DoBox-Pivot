@@ -276,7 +276,6 @@ p {
   justify-content: space-between;
   margin-bottom: 8px;
   margin-top: 20px;
-  /*position: relative;*/
 }
 
 #todo-card-quality-container {
@@ -289,7 +288,8 @@ p {
 }
 
 .importance-text {
-  font-size: 16px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
   padding: 5px 0px 5px 0px;
   position: absolute;
   bottom: 4px;
@@ -303,6 +303,11 @@ p {
   font-size: 13px;
 }
 
+.quality {
+  font-family: 'Roboto Slab', serif;
+  font-size: 14px;
+}
+
 /*MEDIA QUERIES*/
 
 @media screen and (min-width: 520px) {
@@ -311,12 +316,6 @@ p {
     font-size: 45px;
     padding: 40px 0px;
   }
-
- /* .complete-btn {
-    width: 100px;
-    right: 0;
-    bottom: 10px;
-  }*/
 
   #description-input {
     height: 32px;
@@ -340,7 +339,7 @@ p {
 }
 
   .importance-text {
-  font-size: 16px;
+  font-size: 13px;
 }
 
 .importance-button {
