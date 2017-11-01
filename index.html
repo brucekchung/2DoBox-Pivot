@@ -11,7 +11,7 @@
   <body>
     <header id="user-input-form-section" class="main-section">
       <h1 id="todobox-title-text">2do<span>box</span></h1>
-      <section>
+      <section class="heading-container">
         <form id="user-input-form">
           <label for="title-input">Title</label>
           <label for="description-input">Task</label>
@@ -20,11 +20,12 @@
           <p class="charCount">0</p>
         </form>
         <button id="save-button" class="rectangular-blue-button" type="input" disabled="true">save</button>
-        <button id="show-complete" class="rectangular-blue-button" type="input">Show Complete TODOs</button>
-        <button id="all-todos" class="rectangular-blue-button" type="input">Show More TODOS</button>
+        <button id="show-complete" class="rectangular-blue-button" type="input">Show Completed</button>
+        <button id="all-todos" class="rectangular-blue-button" type="input">Show More</button>
+        <p class="search-by">Search TODOS by:</p>
         <div class="sort-container">
            <button id="none" class="rectangular-blue-button importance-button" type="input">None</button>
-          <button id="low" class="rectangular-blue-button importance-button" type="input">low</button>
+          <button id="low" class="rectangular-blue-button importance-button" type="input">Low</button>
           <button id="normal" class="rectangular-blue-button importance-button" type="input">Normal</button>
           <button id="high" class="rectangular-blue-button importance-button" type="input">High</button>
           <button id="critical" class="rectangular-blue-button importance-button" type="input">Critical</button>

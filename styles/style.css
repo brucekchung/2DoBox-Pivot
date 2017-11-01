@@ -41,9 +41,39 @@ textarea:focus {
   outline      : none;
 }
 
+#show-complete,
+#all-todos {
+  width: 49.27%;
+  font-size: 16px;
+}
+
+ #save-button,
+  .single-line-input {
+    width: 100%;
+  }
+
+.charCount {
+  margin: 0;
+  position: absolute;
+  display: inline-block;
+  text-align: right;
+  bottom: 14px;
+}
+
+.heading-container {
+  width: 275px;
+  margin: auto;
+}
+
+.search-by {
+  margin: auto;
+  text-align: right;
+  font-size: 15px;
+}
+
 #user-input-form-section {
   background-color: #E5F3F2;
-  height: 400px;
+  height: 425px;
   text-align: center;
   width: 100%;
 }
@@ -55,7 +85,6 @@ textarea:focus {
   height: 40px;
   padding: 0;
   vertical-align: center;
-  width: 275px;
   margin-bottom: 15px;
 }
 
@@ -70,7 +99,7 @@ textarea:focus {
   margin-bottom: 17px;
   padding: 0;
   text-indent: 10px;
-  width: 275px;
+  width: 100%;
 }
 
 #description-input {
@@ -90,6 +119,7 @@ textarea:focus {
   display: flex;
   flex-direction: column;
   padding: 0px 0px 20px 0px;
+  position: relative;
 }
 
 /*CARD SECTION CONTAINER*/
@@ -149,7 +179,7 @@ p {
   background-repeat: no-repeat;
 }
 
-.downvote:hover {
+.downvote-btn:hover {
   background: url(../FEE-ideabox-icon-assets/downvote-hover.svg);
   background-repeat: no-repeat;
   height: 26px;
@@ -224,6 +254,10 @@ p {
 
 /*TODO CARD CONTAINER*/
 
+#search-input-form {
+  width: 275px;
+}
+
 #search-input {
   margin: 18px 0px 20px 0px;
 }
@@ -263,13 +297,10 @@ p {
   width: 134px;
 }
 
-#show-complete,
-.all-todos {
-  width: 237px;
-}
-
 .importance-button {
-  width: 100px;
+  width: 18.8%;
+  height: 30px;
+  font-size: 13px;
 }
 
 /*MEDIA QUERIES*/
@@ -296,8 +327,30 @@ p {
     margin: 25px 0px 20px 0px;
   }
 
-  #save-button,
-  .todo-card,
-  .single-line-input {
-    width: 480px;
-  }
+  #search-input-form {
+  width: 480px;
+}
+
+.todo-card {
+  width: 480px;
+}
+  .heading-container {
+  width: 480px;
+  margin: auto;
+}
+
+  .importance-text {
+  font-size: 16px;
+}
+
+.importance-button {
+  width: 19.3%;
+  height: 30px;
+  font-size: 21px;
+}
+
+  #show-complete,
+  #all-todos {
+  width: 49%;
+  font-size: 20px;
+}
